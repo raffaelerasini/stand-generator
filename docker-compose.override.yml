@@ -1,0 +1,5 @@
+# solo in locale (docker compose lo carica da solo; Coolify no): http://localhost:7860
+services:
+  stands:
+    ports:
+      - "7860:7860"

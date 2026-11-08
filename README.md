@@ -88,4 +88,20 @@ Un file di parametri minimo per uno strumento nuovo:
 ```
 
 Da 2 kg in su si usano automaticamente i pezzi robusti (come il Virus).
+
+## Sito web
+
+`app.py` è un'interfaccia Gradio sopra `standgen`: scegli uno strumento o inserisci le misure, premi **Genera** e ottieni
+visore 3D (con selettore dell'angolo), anteprime, pezzi, ferramenta, montaggio, verifica e zip da scaricare.
+Le generazioni uguali si riprendono dalla cache (`DATA_DIR/cache`, ultime `CACHE_MAX`).
+
+```
+pip install -r requirements.txt && python app.py      # http://localhost:7860
+docker compose up --build                             # idem, in container (porta dal file override)
+```
+
+**Coolify:** nuova risorsa *Docker Compose* dal repository, cartella base `stands/`, file `docker-compose.yml`;
+assegna il dominio al servizio `stands` (porta 7860). Variabili facoltative: `APP_PASSWORD` (+ `APP_USER`, default
+`admin`) per proteggere il sito, `CONCURRENCY` (generazioni in parallelo, default 2), `CACHE_MAX`.
+I risultati stanno nel volume `stands-data`. `docker-compose.override.yml` serve solo in locale (pubblica la porta).
 La traversa centrale ora si posiziona da sola: la vecchia posizione (x = 40–45) toccava il ripiano all'angolo minimo, e il controllo vecchio non lo vedeva.

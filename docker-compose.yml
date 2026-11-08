@@ -1,0 +1,16 @@
+services:
+  stands:
+    build: .
+    restart: unless-stopped
+    environment:
+      # Coolify: assegna un dominio al servizio "stands" sulla porta 7860
+      - SERVICE_FQDN_STANDS_7860
+      - APP_PASSWORD=${APP_PASSWORD:-}
+      - APP_USER=${APP_USER:-admin}
+      - CONCURRENCY=${CONCURRENCY:-2}
+      - CACHE_MAX=${CACHE_MAX:-40}
+    volumes:
+      - stands-data:/data
+
+volumes:
+  stands-data:

@@ -1,0 +1,8 @@
+**/__pycache__
+*.pyc
+data
+virus_ti
+tracker_plus
+launchpad_pro
+tests
+.git

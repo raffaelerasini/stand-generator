@@ -123,7 +123,8 @@ def tune(params, time_limit=40.0, max_evals=600, progress=None):
         rep = validate(Stand(trial), quick=True)
         if rep.ok:
             res.params, res.ok = trial, True
-            res.message = (f"trovata dopo {res.evaluated} prove: profondità {depth:.0f} mm, "
+            n = res.evaluated
+            res.message = (f"trovata dopo {n} {'prova' if n == 1 else 'prove'}: profondità {depth:.0f} mm, "
                            f"perno a {pivot_d} mm, asta {prop_l} mm")
             break
         res.last_errors = [f"{c.group} {c.label}: {c.detail}" for c in rep.errors()]
