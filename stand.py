@@ -24,8 +24,9 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 DEFAULTS = dict(
     ANGLES=[5, 10, 15], NOTCH_Z={5: 11.0, 10: 8.0, 15: 17.5},
     # base
-    W_IN=28.0, W_WALL=8.0, FLOOR=3.0, Z_HINGE=11.0, BOSS_R=6.5, WALL_FRONT=12.0,
-    NOTCH_R=4.3, MID_CB_X=45.0, FL_W=14.0, ROOF=3.0, FL_ROOF=4.0,
+    W_IN=28.0, W_WALL=8.0, FLOOR=3.0, Z_HINGE=11.0, BOSS_R=6.5, WALL_FRONT=12.0, HINGE_NUT_D=5.2,
+    NOTCH_R=4.3, MID_CB_X=45.0, FL_W=14.0, ROOF=3.0,
+    BOLT_CB=16.0,          # vite traversa: lunghezza; aletta alta BOLT_CB - 0.5 (rondella 1 mm, punta a filo sotto)
     # ripiano
     DECK_W=27.0, DECK_H=14.0, DECK_LEN=190.0, LIP_T=5.0, LIP_H=10.0, LIP_X0=None, PIVOT_D=160.0, FORK_GAP=11.0,
     # asta
@@ -43,16 +44,16 @@ PROFILES = {
         Z_HINGE=13.0, BOSS_R=8.0, WALL_FRONT=14.0, NOTCH_R=5.3, MID_CB_X=40.0,
         DECK_H=18.0, LIP_T=8.0, LIP_H=30.0, LIP_X0=-5.0, PIVOT_D=100.0, FORK_GAP=13.0,
         PROP_L=55.0, PROP_T=14.0, PROP_W=12.0, PIV_R=7.0, FOOT_R=5.0, FOOT_OFF=-2.0, EAR_W=41.0,
-        CB_W=24.0, CB_H=12.0, CB_MID_H=20.0),
+        CB_W=24.0, CB_H=12.0, CB_MID_H=20.0, BOLT_CB=20.0),
     "tracker_plus": dict(DEV_W=282.0, DEV_D=207.0, DEV_H=33.0, LIP_H=10.0, SPACING_RANGE=(170.0, 200.0)),
     "launchpad_pro": dict(DEV_W=268.0, DEV_D=268.0, DEV_H=18.0, LIP_H=8.0, SPACING_RANGE=(160.0, 200.0)),
 }
 
 HARDWARE = {
-    "virus_ti": ["2x M5x55 (cerniera)", "2x M5x40 (perno asta)", "4x dado autobloccante M5 + 8 rondelle",
-                 "4x M5x25 + 4 dadi M5 + 4 rondelle (traverse, nell'aletta interna delle basi)", "6x M5x16 + 6 dadi M5 (giunzione traverse, 3 per traversa)"],
-    "tracker_plus": ["2x M5x55 (cerniera)", "2x M5x35 (perno asta)", "4x dado autobloccante M5 + 8 rondelle",
-                     "4x M5x20 + 4 dadi M5 + 4 rondelle (traverse, nell'aletta interna delle basi)"],
+    "virus_ti": ["2x M5x50 (cerniera, autobloccante nella sede esagonale)", "2x M5x40 (perno asta)", "4x dado autobloccante M5 + 6 rondelle",
+                 "4x M5x20 + 4 dadi M5 + 4 rondelle (traverse, nell'aletta interna delle basi)", "6x M5x16 + 6 dadi M5 (giunzione traverse, 3 per traversa)"],
+    "tracker_plus": ["2x M5x50 (cerniera, autobloccante nella sede esagonale)", "2x M5x40 (perno asta)", "4x dado autobloccante M5 + 6 rondelle",
+                     "4x M5x16 + 4 dadi M5 + 4 rondelle (traverse, nell'aletta interna delle basi)"],
 }
 HARDWARE["launchpad_pro"] = HARDWARE["tracker_plus"]
 
@@ -71,6 +72,7 @@ def apply_profile(name):
     g["X_FRONT"] = -BOSS_R
     g["X_REAR"] = rear_cx + SLOT_W / 2 + 4
     g["CB_X"] = (MID_CB_X, rear_cx)
+    g["FL_TOP"] = BOLT_CB - 0.5
     g["FL_Y"] = W_OUT / 2 + FL_W / 2                  # vite traversa nell'aletta
     g["CB_END"] = SPACING_RANGE[1] / 2 + W_OUT / 2 + 2
     g["SPLIT"] = 2 * CB_END > 250
@@ -119,14 +121,17 @@ def make_base():
     half = W_OUT / 2
     body = xz_prism(prof, -half, -W_IN / 2) + xz_prism(prof, W_IN / 2, half)
     body = body + box(-BOSS_R, X_REAR, -half, half, 0, FLOOR)
+    # sede esagonale per l'autobloccante della cerniera (lato +Y): basta una M5x50
+    nut = CrossSection.circle(NUT_F / math.sqrt(3), 6).translate([0, Z_HINGE])
+    body = body - xz_prism(nut, half - HINGE_NUT_D, half + 1)
     # fondo aperto sotto le tacche (passaggio asta)
     body = body - box(min(xs) - 10, max(xs) + 6, -W_IN / 2, W_IN / 2, -1, FLOOR + 0.01)
     yo = half + FL_W
     for cx in CB_X:
         x0, x1 = cx - SLOT_W / 2 - 4, cx + SLOT_W / 2 + 4
         # alette laterali (vite della traversa) + tunnel passante
-        body = body + box(x0, x1, -yo, -half + 0.01, 0, SLOT_H + FL_ROOF) \
-                    + box(x0, x1, half - 0.01, yo, 0, SLOT_H + FL_ROOF)
+        body = body + box(x0, x1, -yo, -half + 0.01, 0, FL_TOP) \
+                    + box(x0, x1, half - 0.01, yo, 0, FL_TOP)
         body = body - box(cx - SLOT_W / 2, cx + SLOT_W / 2, -yo - 1, yo + 1, -1, SLOT_H)
         for sy in (-FL_Y, FL_Y):
             body = body - vcyl(cx, sy, -1, 40, M5)
@@ -137,7 +142,7 @@ def bolt_heads():
     m = None
     for cx in CB_X:
         for sy in (-FL_Y, FL_Y):
-            c = vcyl(cx, sy, SLOT_H + FL_ROOF, SLOT_H + FL_ROOF + 6, 5.0)
+            c = vcyl(cx, sy, FL_TOP, FL_TOP + 6, 5.0)
             m = c if m is None else m + c
     return m
 

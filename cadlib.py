@@ -56,3 +56,9 @@ def bbox(m):
     return np.array(b[3:]) - np.array(b[:3])
 
 
+
+# --- M4 (standard viteria, vedi ../VITERIA_STANDARD.md) ---
+M4 = 2.25          # raggio foro passante M4 (Ø4.5)
+CB4_R = 4.0        # raggio lamatura testa brugola M4
+NUT4_F = 7.4       # sede dado M4 tra le facce
+NYLOC_D = 5.2      # profondità sede autobloccante M5

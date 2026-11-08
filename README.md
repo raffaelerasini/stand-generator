@@ -33,20 +33,22 @@ Stampa consigliata: PETG, 4 pareti, gyroid 30–40 %.
 
 ## Ferramenta
 
+Le viti di cerniera e perno possono essere a brugola (DIN 912) o a testa esagonale (DIN 933): ho verificato che le teste non tocchino le pareti a nessun angolo.
+
 **Virus TI**
 
-- 2 viti M5×55 per la cerniera
+- 2 viti M5×50 per la cerniera (l'autobloccante va nella sede esagonale della parete)
 - 2 viti M5×40 per il perno dell'asta
-- 4 dadi autobloccanti M5 e 8 rondelle
-- 4 viti M5×25, 4 dadi e 4 rondelle per fissare le traverse (nell'aletta interna delle basi)
+- 4 dadi autobloccanti M5 e 6 rondelle
+- 4 viti M5×20, 4 dadi e 4 rondelle per fissare le traverse (nell'aletta interna delle basi)
 - 6 viti M5×16 e 6 dadi per la giunzione delle traverse (3 per traversa)
 
 **Tracker+ e Launchpad Pro (per ciascuno)**
 
-- 2 viti M5×55 per la cerniera
-- 2 viti M5×35 per il perno dell'asta
-- 4 dadi autobloccanti M5 e 8 rondelle
-- 4 viti M5×20, 4 dadi e 4 rondelle per le traverse (nell'aletta interna delle basi)
+- 2 viti M5×50 per la cerniera (l'autobloccante va nella sede esagonale della parete)
+- 2 viti M5×40 per il perno dell'asta
+- 4 dadi autobloccanti M5 e 6 rondelle
+- 4 viti M5×16, 4 dadi e 4 rondelle per le traverse (nell'aletta interna delle basi)
 
 ## Montaggio
 
@@ -55,7 +57,7 @@ Stampa consigliata: PETG, 4 pareti, gyroid 30–40 %.
    - Virus: 330–390 mm, consigliata ~370;
    - Tracker+: 170–200 mm, consigliata ~190;
    - Launchpad Pro: 160–200 mm, consigliata ~180.
-3. **Ripiano.** Infilalo tra le pareti della base, davanti, e fissalo con la vite della cerniera, le rondelle e il dado autobloccante.
+3. **Ripiano.** Infilalo tra le pareti della base, davanti, e fissalo con la vite della cerniera (rondella sotto la testa) e il dado autobloccante, che va incassato nella sede esagonale sul lato esterno della parete.
 4. **Asta.** Inseriscila nella forcella sul retro del ripiano e fissala con il perno. Le "orecchie" del piede si appoggiano nelle tacche delle pareti.
 5. **Cambio angolo.** Solleva il retro dello strumento, sposta il piede nella tacca voluta e riabbassa. Le tacche sono a gradini: la più bassa e più indietro è l'angolo minimo, la più alta e più avanti è il massimo.
 
