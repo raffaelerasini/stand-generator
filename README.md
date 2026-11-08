@@ -100,7 +100,7 @@ pip install -r requirements.txt && python app.py      # http://localhost:7860
 docker compose up --build                             # idem, in container (porta dal file override)
 ```
 
-**Coolify:** nuova risorsa *Docker Compose* dal repository, cartella base `stands/`, file `docker-compose.yml`;
+**Coolify:** nuova risorsa *Docker Compose* dal repository (cartella base `/`, file `docker-compose.yml`);
 assegna il dominio al servizio `stands` (porta 7860). Variabili facoltative: `APP_PASSWORD` (+ `APP_USER`, default
 `admin`) per proteggere il sito, `CONCURRENCY` (generazioni in parallelo, default 2), `CACHE_MAX`.
 I risultati stanno nel volume `stands-data`. `docker-compose.override.yml` serve solo in locale (pubblica la porta).
