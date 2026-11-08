@@ -96,7 +96,14 @@ Un file di parametri minimo per uno strumento nuovo:
 
 Da 2 kg in su si usano automaticamente i pezzi robusti (come il Virus).
 
-Oltre ai tre strumenti, `PRESETS` contiene i computer Commodore con tastiera integrata: VIC-20, C64 (breadbin),
+`PRESETS` contiene anche i desktop synth, le groovebox e i controller più diffusi (scelti dalle vetrine Thomann e
+dalle guide 2026), con le misure delle schede dei produttori: Korg volca, Roland AIRA Compact, Behringer TD-3,
+Model D e UB-Xa D, Moog Mother-32, Waldorf Blofeld, Korg minilogue xd module; Elektron Digitakt II / Digitone II /
+Syntakt, Roland TR-8S, SP-404MKII e MC-707, Akai MPC One+ e Live III, Novation Circuit, Teenage Engineering EP-133,
+Maschine+; Launchpad X e Mini MK3, Launch Control XL 3, Akai APC40 MKII, APC mini MK2 e MPD218, Maschine Mikro MK3
+e MK3, Ableton Push 3, Arturia BeatStep Pro. I synth sono a 10°, 20° e 30°, controller e groovebox a 5°, 10° e 15°.
+
+Ci sono poi i computer Commodore con tastiera integrata: VIC-20, C64 (breadbin),
 C64C, C16, Plus/4, C128, Amiga 500 / 500 Plus, Amiga 600, Amiga 1200, tutti a 5°, 10° e 15°. Le misure vengono da
 c64-wiki.de, Wikipedia e dalle brochure Commodore e differiscono di qualche millimetro tra le fonti: prima di
 stampare misura il tuo. Il peso di C16 e Plus/4 non si trova ed è stimato per eccesso. Gli Amiga con tastiera

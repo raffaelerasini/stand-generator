@@ -44,13 +44,125 @@ PRESETS = {
         ANGLES=[15, 25, 35, 45], NOTCH_Z={15: 12.0, 25: 10.0, 35: 18.0, 45: 29.0},
         LIP_H=30.0, LIP_X0=-5.0, PIVOT_D=100.0, PROP_L=55.0),
     "tracker_plus": dict(
-        LABEL="Polyend Tracker+",
+        LABEL="Polyend Tracker+ / Play+",
         DEV_W=282.0, DEV_D=207.0, DEV_H=33.0, DEV_KG=1.2, SPACING_RANGE=(170.0, 200.0),
         ANGLES=[5, 10, 15], NOTCH_Z={5: 11.0, 10: 8.0, 15: 17.5}, LIP_H=10.0),
     "launchpad_pro": dict(
         LABEL="Novation Launchpad Pro MK3",
         DEV_W=268.0, DEV_D=268.0, DEV_H=18.0, DEV_KG=1.0, SPACING_RANGE=(160.0, 200.0),
         ANGLES=[5, 10, 15], NOTCH_Z={5: 11.0, 10: 8.0, 15: 17.5}, LIP_H=8.0),
+
+    # Desktop synth, groovebox e controller tra i più diffusi (vetrine Thomann e guide 2026). Misure dalle schede
+    # dei produttori riportate da Thomann e altri rivenditori; Launchpad X: peso misurato in una recensione;
+    # UB-Xa D: convertito dai pollici. Tacche, perno e asta calcolati con tune() e verificati.
+    "elektron": dict(
+        LABEL="Elektron Digitakt II / Digitone II / Syntakt",
+        DEV_W=215.0, DEV_D=176.0, DEV_H=63.0, DEV_KG=1.53,
+        ANGLES=[5, 10, 15], NOTCH_Z={5: 10.3, 10: 10.3, 15: 19.8}, LIP_H=10.0, PIVOT_D=150.0, PROP_L=30.0),
+    "tr8s": dict(
+        LABEL="Roland TR-8S",
+        DEV_W=409.0, DEV_D=263.0, DEV_H=58.0, DEV_KG=2.1,
+        ANGLES=[5, 10, 15], NOTCH_Z={5: 9.3, 10: 8.3, 15: 17.3}, LIP_H=10.0, PIVOT_D=170.0, PROP_L=40.0),
+    "sp404mk2": dict(
+        LABEL="Roland SP-404MKII",
+        DEV_W=177.5, DEV_D=275.8, DEV_H=70.5, DEV_KG=1.1,
+        ANGLES=[5, 10, 15], NOTCH_Z={5: 10.3, 10: 10.3, 15: 19.8}, LIP_H=10.0, PIVOT_D=150.0, PROP_L=30.0),
+    "mc707": dict(
+        LABEL="Roland MC-707",
+        DEV_W=426.0, DEV_D=263.0, DEV_H=60.0, DEV_KG=2.1,
+        ANGLES=[5, 10, 15], NOTCH_Z={5: 9.3, 10: 8.3, 15: 17.3}, LIP_H=10.0, PIVOT_D=170.0, PROP_L=40.0),
+    "mpc_one": dict(
+        LABEL="Akai MPC One+",
+        DEV_W=272.0, DEV_D=272.0, DEV_H=53.0, DEV_KG=2.1,
+        ANGLES=[5, 10, 15], NOTCH_Z={5: 9.3, 10: 8.3, 15: 17.3}, LIP_H=10.0, PIVOT_D=170.0, PROP_L=40.0),
+    "mpc_live3": dict(
+        LABEL="Akai MPC Live III",
+        DEV_W=436.0, DEV_D=256.0, DEV_H=67.0, DEV_KG=3.9,
+        ANGLES=[5, 10, 15], NOTCH_Z={5: 9.3, 10: 8.3, 15: 17.3}, LIP_H=10.0, PIVOT_D=170.0, PROP_L=40.0),
+    "circuit": dict(
+        LABEL="Novation Circuit Tracks / Rhythm",
+        DEV_W=240.0, DEV_D=210.0, DEV_H=45.0, DEV_KG=0.78,
+        ANGLES=[5, 10, 15], NOTCH_Z={5: 10.3, 10: 10.3, 15: 19.8}, LIP_H=10.0, PIVOT_D=150.0, PROP_L=30.0),
+    "ep133": dict(
+        LABEL="Teenage Engineering EP-133 K.O. II",
+        DEV_W=176.0, DEV_D=240.0, DEV_H=16.0, DEV_KG=0.62,
+        ANGLES=[5, 10, 15], NOTCH_Z={5: 10.3, 10: 10.3, 15: 19.8}, LIP_H=10.0, PIVOT_D=150.0, PROP_L=30.0),
+    "maschine_plus": dict(
+        LABEL="Native Instruments Maschine+",
+        DEV_W=322.0, DEV_D=301.0, DEV_H=51.0, DEV_KG=2.5,
+        ANGLES=[5, 10, 15], NOTCH_Z={5: 9.3, 10: 8.3, 15: 17.3}, LIP_H=10.0, PIVOT_D=170.0, PROP_L=40.0),
+    "volca": dict(
+        LABEL="Korg volca (tutta la serie)",
+        DEV_W=193.0, DEV_D=115.0, DEV_H=46.0, DEV_KG=0.38,
+        ANGLES=[10, 20, 30], NOTCH_Z={10: 8.3, 20: 14.8, 30: 26.3}, LIP_H=10.0, PIVOT_D=90.0, PROP_L=30.0),
+    "aira_compact": dict(
+        LABEL="Roland AIRA Compact (S-1, J-6)",
+        DEV_W=188.0, DEV_D=106.0, DEV_H=36.2, DEV_KG=0.31,
+        ANGLES=[10, 20, 30], NOTCH_Z={10: 8.3, 20: 14.8, 30: 26.3}, LIP_H=10.0, PIVOT_D=90.0, PROP_L=30.0),
+    "td3": dict(
+        LABEL="Behringer TD-3",
+        DEV_W=305.0, DEV_D=165.0, DEV_H=56.0, DEV_KG=0.8,
+        ANGLES=[10, 20, 30], NOTCH_Z={10: 8.3, 20: 14.8, 30: 26.3}, LIP_H=10.0, PIVOT_D=90.0, PROP_L=30.0),
+    "model_d": dict(
+        LABEL="Behringer Model D",
+        DEV_W=374.0, DEV_D=136.0, DEV_H=90.0, DEV_KG=1.7,
+        ANGLES=[10, 20, 30], NOTCH_Z={10: 8.3, 20: 14.8, 30: 26.3}, LIP_H=10.0, PIVOT_D=90.0, PROP_L=30.0),
+    "mother32": dict(
+        LABEL="Moog Mother-32",
+        DEV_W=319.0, DEV_D=133.0, DEV_H=107.0, DEV_KG=1.59,
+        ANGLES=[10, 20, 30], NOTCH_Z={10: 8.3, 20: 14.8, 30: 26.3}, LIP_H=10.0, PIVOT_D=90.0, PROP_L=30.0),
+    "blofeld": dict(
+        LABEL="Waldorf Blofeld (desktop)",
+        DEV_W=304.0, DEV_D=132.0, DEV_H=54.0, DEV_KG=1.3,
+        ANGLES=[10, 20, 30], NOTCH_Z={10: 8.3, 20: 14.8, 30: 26.3}, LIP_H=10.0, PIVOT_D=90.0, PROP_L=30.0),
+    "minilogue_xd_m": dict(
+        LABEL="Korg minilogue xd module",
+        DEV_W=500.0, DEV_D=179.0, DEV_H=85.0, DEV_KG=2.6,
+        ANGLES=[10, 20, 30], NOTCH_Z={10: 8.3, 20: 18.3, 30: 33.3}, LIP_H=10.0, PIVOT_D=110.0, PROP_L=35.0),
+    "ubxa_d": dict(
+        LABEL="Behringer UB-Xa D",
+        DEV_W=460.0, DEV_D=224.0, DEV_H=119.0, DEV_KG=4.85,
+        ANGLES=[10, 20, 30], NOTCH_Z={10: 8.3, 20: 18.3, 30: 33.3}, LIP_H=10.0, PIVOT_D=110.0, PROP_L=35.0),
+    "launchpad_x": dict(
+        LABEL="Novation Launchpad X",
+        DEV_W=241.0, DEV_D=241.0, DEV_H=17.5, DEV_KG=0.82,
+        ANGLES=[5, 10, 15], NOTCH_Z={5: 10.3, 10: 10.3, 15: 19.8}, LIP_H=10.0, PIVOT_D=150.0, PROP_L=30.0),
+    "launchpad_mini3": dict(
+        LABEL="Novation Launchpad Mini MK3",
+        DEV_W=180.0, DEV_D=180.0, DEV_H=14.2, DEV_KG=0.38,
+        ANGLES=[5, 10, 15], NOTCH_Z={5: 10.3, 10: 10.3, 15: 19.8}, LIP_H=9.0, PIVOT_D=150.0, PROP_L=30.0),
+    "lcxl3": dict(
+        LABEL="Novation Launch Control XL 3",
+        DEV_W=250.0, DEV_D=239.0, DEV_H=43.0, DEV_KG=0.93,
+        ANGLES=[5, 10, 15], NOTCH_Z={5: 10.3, 10: 10.3, 15: 19.8}, LIP_H=10.0, PIVOT_D=150.0, PROP_L=30.0),
+    "apc40mk2": dict(
+        LABEL="Akai APC40 MKII",
+        DEV_W=424.0, DEV_D=254.0, DEV_H=46.0, DEV_KG=1.8,
+        ANGLES=[5, 10, 15], NOTCH_Z={5: 10.3, 10: 10.3, 15: 19.8}, LIP_H=10.0, PIVOT_D=150.0, PROP_L=30.0),
+    "apc_mini2": dict(
+        LABEL="Akai APC mini MK2",
+        DEV_W=240.0, DEV_D=210.0, DEV_H=32.0, DEV_KG=0.81,
+        ANGLES=[5, 10, 15], NOTCH_Z={5: 10.3, 10: 10.3, 15: 19.8}, LIP_H=10.0, PIVOT_D=150.0, PROP_L=30.0),
+    "mpd218": dict(
+        LABEL="Akai MPD218",
+        DEV_W=237.0, DEV_D=200.0, DEV_H=39.0, DEV_KG=0.75,
+        ANGLES=[5, 10, 15], NOTCH_Z={5: 10.3, 10: 10.3, 15: 19.8}, LIP_H=10.0, PIVOT_D=150.0, PROP_L=30.0),
+    "maschine_mikro3": dict(
+        LABEL="Native Instruments Maschine Mikro MK3",
+        DEV_W=320.0, DEV_D=177.0, DEV_H=45.0, DEV_KG=1.12,
+        ANGLES=[5, 10, 15], NOTCH_Z={5: 10.3, 10: 10.3, 15: 19.8}, LIP_H=10.0, PIVOT_D=150.0, PROP_L=30.0),
+    "maschine_mk3": dict(
+        LABEL="Native Instruments Maschine MK3",
+        DEV_W=321.0, DEV_D=301.0, DEV_H=41.0, DEV_KG=2.2,
+        ANGLES=[5, 10, 15], NOTCH_Z={5: 9.3, 10: 8.3, 15: 17.3}, LIP_H=10.0, PIVOT_D=170.0, PROP_L=40.0),
+    "push3": dict(
+        LABEL="Ableton Push 3",
+        DEV_W=380.0, DEV_D=318.0, DEV_H=44.5, DEV_KG=3.95,
+        ANGLES=[5, 10, 15], NOTCH_Z={5: 9.3, 10: 8.3, 15: 17.3}, LIP_H=10.0, PIVOT_D=170.0, PROP_L=40.0),
+    "beatstep_pro": dict(
+        LABEL="Arturia BeatStep Pro",
+        DEV_W=415.0, DEV_D=163.0, DEV_H=36.0, DEV_KG=1.45,
+        ANGLES=[5, 10, 15], NOTCH_Z={5: 10.3, 10: 10.3, 15: 19.8}, LIP_H=10.0, PIVOT_D=150.0, PROP_L=30.0),
 
     # Computer Commodore. Misure da c64-wiki.de (VIC-20, C64, C16, Plus/4), Wikipedia (Amiga 500, 600, 1200),
     # retrotechcollection (C64C) e brochure Commodore (C128). Le fonti differiscono di qualche mm: misura il tuo.
@@ -152,7 +264,12 @@ PRESETS = {
 }
 
 PRESET_GROUPS = {
-    "Strumenti musicali": ["virus_ti", "tracker_plus", "launchpad_pro"],
+    "Synth desktop": ["virus_ti", "volca", "aira_compact", "td3", "model_d", "mother32", "blofeld",
+                      "minilogue_xd_m", "ubxa_d"],
+    "Groovebox e campionatori": ["elektron", "tracker_plus", "tr8s", "sp404mk2", "mc707", "mpc_one", "mpc_live3",
+                                 "circuit", "ep133", "maschine_plus"],
+    "Controller": ["launchpad_pro", "launchpad_x", "launchpad_mini3", "lcxl3", "apc40mk2", "apc_mini2", "mpd218",
+                   "maschine_mikro3", "maschine_mk3", "push3", "beatstep_pro"],
     "Computer Commodore": ["vic20", "c64", "c64c", "c16", "plus4", "c128"],
     "Amiga": ["a500", "a600", "a1200"],
     "Sinclair": ["zx48", "zx128", "zx2_3"],
