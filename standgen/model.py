@@ -92,12 +92,73 @@ PRESETS = {
         LABEL="Amiga 1200",
         DEV_W=470.0, DEV_D=241.0, DEV_H=76.0, DEV_KG=3.6,
         ANGLES=[5, 10, 15], NOTCH_Z={5: 9.3, 10: 8.3, 15: 17.3}, LIP_H=10.0, PIVOT_D=170.0, PROP_L=40.0),
+
+    # Altri home computer. Misure da Wikipedia (Spectrum 48K, Spectrum+), Science Museum (BBC Micro),
+    # retrotechcollection (Atari 600XL, 800, 520ST), computersmuseum (800XL), rigpix (1040STE), gondolin/cpcwiki
+    # (CPC), carleton/oldcomputermuseum (TI-99/4A), sinclaircollection (Spectrum 128, +2). Fonti discordanti di
+    # qualche mm, +2/+3 le più incerte. Peso stimato per eccesso: Spectrum+ (come il 128), CPC 6128.
+    "zx48": dict(
+        LABEL="Sinclair ZX Spectrum 16K/48K",
+        DEV_W=233.0, DEV_D=144.0, DEV_H=30.0, DEV_KG=0.55,
+        ANGLES=[5, 10, 15], NOTCH_Z={5: 10.3, 10: 10.3, 15: 19.8}, LIP_H=10.0, PIVOT_D=150.0, PROP_L=30.0),
+    "zx128": dict(
+        LABEL="Sinclair ZX Spectrum+ / 128",
+        DEV_W=320.0, DEV_D=150.0, DEV_H=45.0, DEV_KG=1.2,
+        ANGLES=[5, 10, 15], NOTCH_Z={5: 10.3, 10: 10.3, 15: 19.8}, LIP_H=10.0, PIVOT_D=150.0, PROP_L=30.0),
+    "zx2_3": dict(
+        LABEL="Sinclair ZX Spectrum +2 / +3",
+        DEV_W=439.0, DEV_D=174.0, DEV_H=56.0, DEV_KG=1.7,
+        ANGLES=[5, 10, 15], NOTCH_Z={5: 10.3, 10: 10.3, 15: 19.8}, LIP_H=10.0, PIVOT_D=150.0, PROP_L=30.0),
+    "atari800": dict(
+        LABEL="Atari 800",
+        DEV_W=483.0, DEV_D=343.0, DEV_H=102.0, DEV_KG=5.4,
+        ANGLES=[5, 10, 15], NOTCH_Z={5: 9.3, 10: 8.3, 15: 17.3}, LIP_H=10.0, PIVOT_D=170.0, PROP_L=40.0),
+    "atari600xl": dict(
+        LABEL="Atari 600XL",
+        DEV_W=267.0, DEV_D=216.0, DEV_H=76.0, DEV_KG=1.2,
+        ANGLES=[5, 10, 15], NOTCH_Z={5: 10.3, 10: 10.3, 15: 19.8}, LIP_H=10.0, PIVOT_D=150.0, PROP_L=30.0),
+    "atari800xl": dict(
+        LABEL="Atari 800XL",
+        DEV_W=380.0, DEV_D=220.0, DEV_H=60.0, DEV_KG=1.95,
+        ANGLES=[5, 10, 15], NOTCH_Z={5: 10.3, 10: 10.3, 15: 19.8}, LIP_H=10.0, PIVOT_D=150.0, PROP_L=30.0),
+    "atari520st": dict(
+        LABEL="Atari 520ST / 520STM (cassa corta)",
+        DEV_W=476.0, DEV_D=241.0, DEV_H=70.0, DEV_KG=4.3,
+        ANGLES=[5, 10, 15], NOTCH_Z={5: 9.3, 10: 8.3, 15: 17.3}, LIP_H=10.0, PIVOT_D=170.0, PROP_L=40.0),
+    "atari_stf": dict(
+        LABEL="Atari 520/1040 STF, STE",
+        DEV_W=476.0, DEV_D=292.0, DEV_H=70.0, DEV_KG=4.3,
+        ANGLES=[5, 10, 15], NOTCH_Z={5: 9.3, 10: 8.3, 15: 17.3}, LIP_H=10.0, PIVOT_D=170.0, PROP_L=40.0),
+    "cpc464": dict(
+        LABEL="Amstrad CPC 464",
+        DEV_W=565.0, DEV_D=170.0, DEV_H=70.0, DEV_KG=2.8,
+        ANGLES=[5, 10, 15], NOTCH_Z={5: 9.3, 10: 8.3, 15: 17.3}, LIP_H=10.0, PIVOT_D=170.0, PROP_L=40.0),
+    "cpc664": dict(
+        LABEL="Amstrad CPC 664",
+        DEV_W=580.0, DEV_D=170.0, DEV_H=70.0, DEV_KG=2.4,
+        ANGLES=[5, 10, 15], NOTCH_Z={5: 9.3, 10: 8.3, 15: 17.3}, LIP_H=10.0, PIVOT_D=170.0, PROP_L=40.0),
+    "cpc6128": dict(
+        LABEL="Amstrad CPC 6128",
+        DEV_W=511.0, DEV_D=175.0, DEV_H=50.0, DEV_KG=2.5,
+        ANGLES=[5, 10, 15], NOTCH_Z={5: 9.3, 10: 8.3, 15: 17.3}, LIP_H=10.0, PIVOT_D=170.0, PROP_L=40.0),
+    "bbc_b": dict(
+        LABEL="Acorn BBC Micro Model B",
+        DEV_W=410.0, DEV_D=345.0, DEV_H=75.0, DEV_KG=3.66,
+        ANGLES=[5, 10, 15], NOTCH_Z={5: 9.3, 10: 8.3, 15: 17.3}, LIP_H=10.0, PIVOT_D=170.0, PROP_L=40.0),
+    "ti99_4a": dict(
+        LABEL="Texas Instruments TI-99/4A",
+        DEV_W=381.0, DEV_D=259.0, DEV_H=71.0, DEV_KG=2.15,
+        ANGLES=[5, 10, 15], NOTCH_Z={5: 9.3, 10: 8.3, 15: 17.3}, LIP_H=10.0, PIVOT_D=170.0, PROP_L=40.0),
 }
 
 PRESET_GROUPS = {
     "Strumenti musicali": ["virus_ti", "tracker_plus", "launchpad_pro"],
     "Computer Commodore": ["vic20", "c64", "c64c", "c16", "plus4", "c128"],
     "Amiga": ["a500", "a600", "a1200"],
+    "Sinclair": ["zx48", "zx128", "zx2_3"],
+    "Atari": ["atari800", "atari600xl", "atari800xl", "atari520st", "atari_stf"],
+    "Amstrad": ["cpc464", "cpc664", "cpc6128"],
+    "Altri": ["bbc_b", "ti99_4a"],
 }
 
 KNOWN = set(LIGHT) | set(DEVICE) | {"LABEL"}

@@ -102,6 +102,11 @@ c64-wiki.de, Wikipedia e dalle brochure Commodore e differiscono di qualche mill
 stampare misura il tuo. Il peso di C16 e Plus/4 non si trova ed è stimato per eccesso. Gli Amiga con tastiera
 separata (1000, 2000, 3000, 4000) non ci sono: non hanno una tastiera da inclinare.
 
+Altri home computer, sempre a 5°, 10° e 15°: Sinclair ZX Spectrum 16K/48K, Spectrum+ / 128, +2 / +3; Atari 800,
+600XL, 800XL, 520ST (cassa corta), 520/1040 STF e STE; Amstrad CPC 464, 664, 6128; Acorn BBC Micro Model B;
+Texas Instruments TI-99/4A. Le fonti sono musei e archivi di appassionati (vedi i commenti in `model.py`); le misure
+più incerte sono quelle dello Spectrum +2 / +3. Peso stimato per eccesso per Spectrum+ e CPC 6128.
+
 ## Sito web: STAND
 
 Interfaccia in HTML, CSS e JavaScript semplici (`static/`, nessun framework né build) sopra un'API FastAPI (`app.py`).
