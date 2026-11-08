@@ -9,6 +9,7 @@ from .checks import validate
 from .model import Stand, resolve_params
 from .tune import tune
 from . import render
+from .ikea import instructions_pdf
 
 
 @dataclass
@@ -53,8 +54,10 @@ def assembly_text(s):
     return "\n".join(lines) + "\n"
 
 
-def generate(params, out_dir, name="supporto", previews=True, glb=False, make_zip=True, progress=None):
-    """genera tutto in out_dir. Se mancano le tacche le calcola. Ritorna un Result."""
+def generate(params, out_dir, name="supporto", previews=True, glb=False, make_zip=True, progress=None,
+             instructions=False):
+    """genera tutto in out_dir. Se mancano le tacche le calcola. Ritorna un Result.
+    instructions=True aggiunge il PDF illustrato (istruzioni.pdf, ~15-20 s)."""
     params = dict(params)
     tr = None
     if needs_tuning(params):
@@ -99,6 +102,11 @@ def generate(params, out_dir, name="supporto", previews=True, glb=False, make_zi
         "montaggio.md": assembly_text(s),
         "parametri.json": json.dumps(_jsonable(s.params), indent=2, ensure_ascii=False) + "\n",
     }
+    if instructions:
+        if progress:
+            progress("istruzioni")
+        files["istruzioni.pdf"] = instructions_pdf(s, os.path.join(out_dir, "istruzioni.pdf"),
+                                                   params.get("LABEL") or name)
     for fn, txt in texts.items():
         f = os.path.join(out_dir, fn)
         with open(f, "w", encoding="utf-8") as fh:
@@ -113,6 +121,25 @@ def generate(params, out_dir, name="supporto", previews=True, glb=False, make_zi
         files["zip"] = z
     msg = "valido" if rep.ok else "NON valido: " + "; ".join(f"{c.group} {c.label}" for c in rep.errors())
     return Result(rep.ok, s, rep, tr, out_dir, files, msg)
+
+
+def add_instructions(s, out_dir, name, title=None, pages=True):
+    """crea istruzioni.pdf (e le pagine PNG in istruzioni/) per un risultato già generato;
+    se c'è lo zip, ci aggiunge il PDF. Ritorna (pdf, [png])."""
+    pdf = os.path.join(out_dir, "istruzioni.pdf")
+    pdir = os.path.join(out_dir, "istruzioni")
+    prefix = None
+    if pages:
+        os.makedirs(pdir, exist_ok=True)
+        prefix = os.path.join(pdir, "pagina_")
+    instructions_pdf(s, pdf, title or name, png_prefix=prefix)
+    z = os.path.join(out_dir, f"{name}.zip")
+    if os.path.exists(z):
+        with zipfile.ZipFile(z, "a", zipfile.ZIP_DEFLATED) as zf:
+            if f"{name}/istruzioni.pdf" not in zf.namelist():
+                zf.write(pdf, f"{name}/istruzioni.pdf")
+    pngs = sorted(os.path.join(pdir, f) for f in os.listdir(pdir)) if pages else []
+    return pdf, pngs
 
 
 def _jsonable(p):

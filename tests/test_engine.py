@@ -66,6 +66,17 @@ def test_too_many_angles_message():
     assert not t.ok and "meno angoli" in t.message
 
 
+def test_instructions_pdf():
+    from standgen.ikea import instructions_pdf
+    s = Stand(PRESETS["virus_ti"])            # traverse in due pezzi: c'è anche il passo della giunzione
+    with tempfile.TemporaryDirectory() as d:
+        pdf = instructions_pdf(s, os.path.join(d, "i.pdf"), "Virus", png_prefix=os.path.join(d, "p"))
+        pages = [f for f in os.listdir(d) if f.startswith("p")]
+        assert os.path.getsize(pdf) > 50_000
+        # copertina, pezzi, ferramenta + giunzione, traverse, viti traverse, ripiano, asta, angoli
+        assert len(pages) == 9, pages
+
+
 if __name__ == "__main__":
     for n, f in list(globals().items()):
         if n.startswith("test_"):

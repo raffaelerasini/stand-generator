@@ -52,6 +52,8 @@ Le viti di cerniera e perno possono essere a brugola (DIN 912) o a testa esagona
 
 ## Montaggio
 
+Ogni cartella ha `istruzioni.pdf`: istruzioni illustrate stile IKEA (pezzi, ferramenta in scala 1:1, passi esplosi, cambio angolo). In breve:
+
 1. **Traverse.** Sul Virus, unisci le metà A e B nella zona a mezzo legno: i dadi vanno nelle sedi esagonali sotto A, le teste delle viti nelle lamature sopra B.
 2. **Basi.** Infila le due traverse nei tunnel delle basi (quello al centro e quello dietro). Le alette con il foro rivolte verso l'interno ricevono la vite: dado nel canale sotto la traversa, vite con rondella dall'alto. Le asole regolano la distanza tra i fianchi:
    - Virus: 330–390 mm, consigliata ~370;
@@ -72,11 +74,14 @@ Il motore è il pacchetto `standgen/` (base per il futuro sito):
 | `checks.py` | verifica: collisioni a ogni angolo (anche ripiano/asta contro le traverse), pezzi interi, piatto, viti, tacche, stabilità, scorta |
 | `hardware.py` | catalogo della viteria standard (`../VITERIA_STANDARD.md`) e scelta delle lunghezze |
 | `render.py` | anteprime PNG e assemblato 3D colorato (GLB) |
+| `drawing.py` | disegni al tratto: rasterizzatore z-buffer in numpy, contorni senza linee nascoste, viteria 3D |
+| `ikea.py` | `istruzioni.pdf`: copertina, pezzi, ferramenta 1:1, passi esplosi con dettagli, cambio angolo |
 | `pipeline.py` | `generate(parametri, cartella)`: STL, anteprime, `ferramenta.csv`, `verifica.md`, `montaggio.md`, `parametri.json`, zip |
 
 ```
 python stand.py                          # tutti i profili (o: python stand.py virus_ti)
 python stand.py --params mio.json        # strumento nuovo: le tacche si calcolano se mancano
+python stand.py --no-pdf                 # senza istruzioni illustrate (~15-20 s per strumento)
 python render.py                         # solo anteprime
 python tests/test_engine.py              # test
 ```
@@ -93,6 +98,7 @@ Da 2 kg in su si usano automaticamente i pezzi robusti (come il Virus).
 
 `app.py` è un'interfaccia Gradio sopra `standgen`: scegli uno strumento o inserisci le misure, premi **Genera** e ottieni
 visore 3D (con selettore dell'angolo), anteprime, pezzi, ferramenta, montaggio, verifica e zip da scaricare.
+Nella scheda *Montaggio* il pulsante crea le istruzioni illustrate in PDF (circa 20 s, poi restano in cache e finiscono anche nello zip).
 Le generazioni uguali si riprendono dalla cache (`DATA_DIR/cache`, ultime `CACHE_MAX`).
 
 ```

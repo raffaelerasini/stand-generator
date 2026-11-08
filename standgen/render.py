@@ -1,9 +1,23 @@
 """Anteprime PNG (matplotlib) e assemblato 3D colorato (GLB) di un supporto."""
+import functools
+import threading
+
 import numpy as np
 import matplotlib
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 from mpl_toolkits.mplot3d.art3d import Poly3DCollection
+
+PLOT_LOCK = threading.RLock()        # pyplot non è thread-safe: una figura alla volta
+
+
+def locked(fn):
+    @functools.wraps(fn)
+    def wrap(*a, **k):
+        with PLOT_LOCK:
+            return fn(*a, **k)
+    return wrap
+
 
 COL = {"base": "#4a7bd0", "deck": "#e08a3c", "prop": "#3fa66b", "cross": "#8a8f99", "dev": "#cccccc"}
 
@@ -32,6 +46,7 @@ def _extent(s):
     return x0, x1, top
 
 
+@locked
 def side_view(s, path, title=""):
     base, deck, prop, _ = s.build_parts()
     x0, x1, top = _extent(s)
@@ -53,6 +68,7 @@ def side_view(s, path, title=""):
     plt.close(fig)
 
 
+@locked
 def assembly_view(s, path, angle=None, title=""):
     base, deck, prop, bars = s.build_parts()
     a = angle if angle is not None else s.ANGLES[-1]

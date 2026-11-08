@@ -21,7 +21,7 @@ import gradio as gr
 from standgen import PRESETS, Stand, generate, load_params
 from standgen import render
 from standgen.checks import summary
-from standgen.pipeline import _jsonable
+from standgen.pipeline import _jsonable, add_instructions
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 DATA_DIR = os.path.abspath(os.environ.get("DATA_DIR", os.path.join(HERE, "data")))
@@ -132,7 +132,7 @@ def glb_path(key, angle):
     return f
 
 
-def run(params, name, progress):
+def run(params, name, progress, title=None):
     """genera (o riprende dalla cache) e ritorna il dizionario risultato."""
     key = params_key({**params, "_name": name})
     out = os.path.join(CACHE_DIR, key)
@@ -145,7 +145,7 @@ def run(params, name, progress):
         steps = {"calcolo tacche": 0.1, "geometria": 0.35, "verifica": 0.45, "anteprime": 0.6}
         r = generate(params, out, name=name, previews=True, glb=False,
                      progress=lambda st: progress(steps.get(st, 0.5), desc=st.capitalize()))
-        res = {"key": key, "name": name, "ok": r.ok, "message": r.message,
+        res = {"key": key, "name": name, "title": title or name, "ok": r.ok, "message": r.message,
                "tune": r.tune.message if r.tune else None,
                "tune_errors": r.tune.last_errors if r.tune else []}
         if r.stand is not None:
@@ -211,7 +211,7 @@ def on_generate(preset, name, w, d, h, kg, angles_txt, max_depth, lip_h, sp_min,
                 progress=gr.Progress()):
     t0 = time.time()
     params = build_params(preset, w, d, h, kg, angles_txt, max_depth, lip_h, sp_min, sp_max, keep_notches)
-    res = run(params, safe_name(name), progress)
+    res = run(params, safe_name(name), progress, title=preset if preset != CUSTOM else (name or None))
     out = os.path.join(CACHE_DIR, res["key"])
     if "summary" not in res:
         empty = gr.update(value=None)
@@ -227,6 +227,24 @@ def on_generate(preset, name, w, d, h, kg, angles_txt, max_depth, lip_h, sp_min,
             gr.update(choices=[(f"{x}°", x) for x in res["angles"]], value=a, visible=True),
             f.get("preview/vista_laterale.png"), f.get("preview/assemblaggio.png"),
             parts_rows(res), bom_rows(res), montaggio, verifica, f["zip"], stls)
+
+
+def on_pdf(key, progress=gr.Progress()):
+    if not key:
+        raise gr.Error("Prima genera il supporto")
+    out = os.path.join(CACHE_DIR, key)
+    with open(os.path.join(out, "risultato.json"), encoding="utf-8") as fh:
+        res = json.load(fh)
+    if "summary" not in res:
+        raise gr.Error("Questo supporto non è valido: niente istruzioni")
+    pdf = os.path.join(out, "istruzioni.pdf")
+    pdir = os.path.join(out, "istruzioni")
+    with _lock(key):
+        if not (os.path.exists(pdf) and os.path.isdir(pdir)):
+            progress(0.1, desc="Disegno le istruzioni (circa 20 s)")
+            add_instructions(get_stand(key), out, res["name"], res.get("title"))
+    pngs = sorted(os.path.join(pdir, f) for f in os.listdir(pdir))
+    return pdf, pngs
 
 
 def on_angle(key, angle):
@@ -292,6 +310,9 @@ def build_ui():
                     bom = gr.Dataframe(headers=["Q.tà", "Articolo", "Uso", "Scorta", ""],
                                        interactive=False, wrap=True, label="Ferramenta")
                 with gr.Tab("Montaggio"):
+                    pdf_btn = gr.Button("Crea le istruzioni illustrate (PDF)")
+                    pdf_file = gr.File(label="Istruzioni illustrate")
+                    pdf_pages = gr.Gallery(label="Pagine", columns=3, height=520, object_fit="contain")
                     montaggio = gr.Markdown()
                 with gr.Tab("Verifica"):
                     verifica = gr.Markdown()
@@ -303,6 +324,8 @@ def build_ui():
         btn.click(on_generate, inputs,
                   [key, status, viewer, angle, side, iso, parts, bom, montaggio, verifica, zipf, stls],
                   concurrency_limit=CONCURRENCY, concurrency_id="gen")
+        pdf_btn.click(on_pdf, key, [pdf_file, pdf_pages], concurrency_limit=CONCURRENCY, concurrency_id="gen")
+        btn.click(lambda: (None, None), None, [pdf_file, pdf_pages])
         angle.change(on_angle, [key, angle], viewer, concurrency_limit=CONCURRENCY, concurrency_id="gen")
     return demo
 
