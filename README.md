@@ -15,6 +15,7 @@ Davanti non c'è nessun blocco: la cerniera ha tutto lo spazio per ruotare.
 
 Per confronto, nella prima versione (`../virus_stand/`) il piano d'appoggio era a 66 mm.
 In ogni configurazione ho verificato che non ci siano collisioni tra base, ripiano, asta, traverse, teste delle viti e strumento (booleane 3D), e che ogni pezzo sia un corpo unico.
+La traversa centrale si posiziona da sola: la vecchia posizione (x = 40–45) toccava il ripiano all'angolo minimo, e il controllo vecchio non lo vedeva.
 A 45° il bordo anteriore-alto del Virus sporge ~60 mm davanti alla base (in aria): è normale, la base resta entro i 190 mm.
 
 ![virus](virus_ti/preview/vista_laterale.png)
@@ -65,7 +66,7 @@ Ogni cartella ha `istruzioni.pdf`: istruzioni illustrate stile IKEA (pezzi, ferr
 
 ## Rigenerare / modificare
 
-Il motore è il pacchetto `standgen/` (base per il futuro sito):
+Il motore è il pacchetto `standgen/`, lo stesso che usa il sito:
 
 | File | Cosa fa |
 |---|---|
@@ -131,4 +132,3 @@ docker compose up --build                             # idem, in container (port
 assegna il dominio al servizio `stands` (porta 7860). Variabili facoltative: `APP_PASSWORD` (+ `APP_USER`, default
 `admin`) per proteggere il sito, `CONCURRENCY` (generazioni in parallelo, default 2), `CACHE_MAX`.
 I risultati stanno nel volume `stands-data`. `docker-compose.override.yml` serve solo in locale (pubblica la porta).
-La traversa centrale ora si posiziona da sola: la vecchia posizione (x = 40–45) toccava il ripiano all'angolo minimo, e il controllo vecchio non lo vedeva.
