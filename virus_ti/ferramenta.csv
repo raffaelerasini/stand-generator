@@ -1,0 +1,8 @@
+codice;descrizione;quantita;scorta;uso
+M5x50TE;Vite M5×50 testa esagonale (DIN 933);2;12;cerniera
+NYLOC_M5;Dado M5 autobloccante;4;30;cerniera, perno asta
+M5x40TE;Vite M5×40 testa esagonale (DIN 933);2;12;perno asta
+RONDELLA_5x10;Rondella M5 5×10;10;100;cerniera, perno asta, traverse
+M5x20;Vite M5×20 brugola (DIN 912);4;20;traverse
+DADO_M5;Dado M5;10;60;traverse, giunzione traverse
+M5x16;Vite M5×16 brugola (DIN 912);6;30;giunzione traverse

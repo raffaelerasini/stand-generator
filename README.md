@@ -63,9 +63,29 @@ Le viti di cerniera e perno possono essere a brugola (DIN 912) o a testa esagona
 
 ## Rigenerare / modificare
 
-I parametri di ogni strumento stanno in `PROFILES` dentro `stand.py`. Gli helper geometrici sono in `cadlib.py`.
+Il motore è il pacchetto `standgen/` (base per il futuro sito):
+
+| File | Cosa fa |
+|---|---|
+| `model.py` | parametri (default leggero/pesante, `PRESETS`) e geometria, nella classe `Stand` |
+| `tune.py` | calcolo automatico di tacche, perno e lunghezza dell'asta (minimizza la profondità) |
+| `checks.py` | verifica: collisioni a ogni angolo (anche ripiano/asta contro le traverse), pezzi interi, piatto, viti, tacche, stabilità, scorta |
+| `hardware.py` | catalogo della viteria standard (`../VITERIA_STANDARD.md`) e scelta delle lunghezze |
+| `render.py` | anteprime PNG e assemblato 3D colorato (GLB) |
+| `pipeline.py` | `generate(parametri, cartella)`: STL, anteprime, `ferramenta.csv`, `verifica.md`, `montaggio.md`, `parametri.json`, zip |
 
 ```
-python stand.py                 # tutti i profili (o: python stand.py virus_ti)
-python render.py                # anteprime in <strumento>/preview/
+python stand.py                          # tutti i profili (o: python stand.py virus_ti)
+python stand.py --params mio.json        # strumento nuovo: le tacche si calcolano se mancano
+python render.py                         # solo anteprime
+python tests/test_engine.py              # test
 ```
+
+Un file di parametri minimo per uno strumento nuovo:
+
+```json
+{"DEV_W": 378, "DEV_D": 293, "DEV_H": 41, "DEV_KG": 3.2, "ANGLES": [10, 20, 30], "MAX_DEPTH": 200}
+```
+
+Da 2 kg in su si usano automaticamente i pezzi robusti (come il Virus).
+La traversa centrale ora si posiziona da sola: la vecchia posizione (x = 40–45) toccava il ripiano all'angolo minimo, e il controllo vecchio non lo vedeva.
