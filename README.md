@@ -75,6 +75,7 @@ Il motore è il pacchetto `standgen/` (base per il futuro sito):
 | `hardware.py` | catalogo della viteria standard (`../VITERIA_STANDARD.md`) e scelta delle lunghezze |
 | `render.py` | anteprime PNG e assemblato 3D colorato (GLB) |
 | `drawing.py` | disegni al tratto: rasterizzatore z-buffer in numpy, contorni senza linee nascoste, viteria 3D |
+| `blueprint.py` | per il sito: disegni chiari su fondo trasparente e mesh con spigoli vivi per il visore |
 | `ikea.py` | `istruzioni.pdf`: copertina, pezzi, ferramenta 1:1, passi esplosi con dettagli, cambio angolo |
 | `pipeline.py` | `generate(parametri, cartella)`: STL, anteprime, `ferramenta.csv`, `verifica.md`, `montaggio.md`, `parametri.json`, zip |
 
@@ -94,12 +95,32 @@ Un file di parametri minimo per uno strumento nuovo:
 
 Da 2 kg in su si usano automaticamente i pezzi robusti (come il Virus).
 
-## Sito web
+## Sito web: STAND
 
-`app.py` è un'interfaccia Gradio sopra `standgen`: scegli uno strumento o inserisci le misure, premi **Genera** e ottieni
-visore 3D (con selettore dell'angolo), anteprime, pezzi, ferramenta, montaggio, verifica e zip da scaricare.
-Nella scheda *Montaggio* il pulsante crea le istruzioni illustrate in PDF (circa 20 s, poi restano in cache e finiscono anche nello zip).
-Le generazioni uguali si riprendono dalla cache (`DATA_DIR/cache`, ultime `CACHE_MAX`).
+Interfaccia in HTML, CSS e JavaScript semplici (`static/`, nessun framework né build) sopra un'API FastAPI (`app.py`).
+Stile "blueprint scuro": fondo grafite millimetrato, tratto chiaro, un solo accento arancio; caratteri Space Grotesk,
+Inter e JetBrains Mono da Google Fonts.
+
+- **Modello:** visore 3D fatto in casa in WebGL2 (ortografico come un disegno tecnico: trascina per ruotare, rotella
+  per lo zoom, tasto destro per spostare, doppio clic per tornare alla vista iniziale) oppure profilo per ogni angolo;
+  riepilogo con misure, pezzi, ferramenta e download.
+- **Pezzi e ferramenta:** disegni dei pezzi, viti in proporzione, quantità e scorta.
+- **Montaggio:** le pagine di `istruzioni.pdf` con testo e ferramenta di ogni passo (il PDF si crea al primo clic, ~20 s).
+- **Verifica:** tutti i controlli, raggruppati.
+
+Ogni risultato ha un indirizzo (`#/<chiave>/<scheda>`) che si può riaprire finché resta in cache
+(`DATA_DIR/cache`, ultime `CACHE_MAX` generazioni).
+
+| API | |
+|---|---|
+| `GET /api/presets` | profili pronti |
+| `POST /api/generate` | genera (o riprende dalla cache): `{key}` oppure un lavoro `{id, state, progress, stage}` |
+| `GET /api/jobs/{id}` | avanzamento del lavoro |
+| `GET /api/result/{key}` | riepilogo, pezzi, ferramenta, controlli, guida al montaggio |
+| `POST /api/pdf/{key}` | crea le istruzioni illustrate |
+| `GET /api/mesh/{key}/{angolo}.json` | mesh per il visore (vertici, triangoli, spigoli vivi) |
+| `GET /api/draw/{key}/{hero,side_<angolo>,part_<pezzo>}.png` | disegni blueprint, creati alla prima richiesta |
+| `GET /files/{key}/…` | STL, zip, CSV, PDF |
 
 ```
 pip install -r requirements.txt && python app.py      # http://localhost:7860

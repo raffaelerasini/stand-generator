@@ -77,6 +77,39 @@ def test_instructions_pdf():
         assert len(pages) == 9, pages
 
 
+def test_web_outputs():
+    from standgen import blueprint
+    s = Stand(PRESETS["tracker_plus"])
+    m = blueprint.web_mesh(s, s.ANGLES[-1])
+    bars = s.build_parts()[3]
+    assert len(m["parts"]) == 6 + len(s.CB_X) * len(bars)      # base, ripiano, asta per lato + traverse
+    for p in m["parts"]:
+        n = len(p["pos"]) // 3
+        assert p["idx"] and max(p["idx"]) < n and p["edges"] and max(p["edges"]) < n
+    assert len(m["device"]["edges"]) == 24          # scatola: 12 spigoli
+    with tempfile.TemporaryDirectory() as d:
+        f = blueprint.side(s, os.path.join(d, "s.png"), s.ANGLES[0])
+        assert os.path.getsize(f) > 2000
+
+
+def test_site_params():
+    import app
+    p = app.build_params({"preset": "virus_ti", "w": "470", "d": 188, "h": 81, "kg": "3,5",
+                          "angles": [15, 25, 35, 45], "lip": 30, "sp_min": 330, "sp_max": 390})
+    assert p["NOTCH_Z"] and p["DEV_KG"] == 3.5
+    p = app.build_params({"preset": "virus_ti", "w": 470, "d": 188, "h": 81, "kg": 3.5, "angles": [10, 20]})
+    assert "NOTCH_Z" not in p and p["SPACING_RANGE"] is None
+    for bad in ({"w": 10}, {"angles": []}, {"angles": [70]}, {"sp_min": 300}):
+        body = {"w": 300, "d": 200, "h": 40, "kg": 1, "angles": [10], **bad}
+        try:
+            app.build_params(body)
+        except app.BadInput:
+            continue
+        raise AssertionError(bad)
+    pages = app.guide(Stand(PRESETS["virus_ti"]))
+    assert len(pages) == 9 and pages[3]["need"][0][0].startswith("Vite M5×")
+
+
 if __name__ == "__main__":
     for n, f in list(globals().items()):
         if n.startswith("test_"):

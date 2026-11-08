@@ -1,0 +1,183 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>STAND · supporti inclinabili low-profile</title>
+<meta name="description" content="Supporti inclinabili low-profile per strumenti: calcolati, verificati e pronti da stampare.">
+<meta name="theme-color" content="#0D0F12">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header class="top">
+  <a class="brand" href="#/" aria-label="STAND, nuovo progetto">
+    <svg class="mark" viewBox="0 0 48 48" aria-hidden="true"><path d="M3 40 H45" class="m-ink"/><path d="M8 38 L41 13.25" class="m-acc"/><path d="M36 40 L33 19.5" class="m-ink"/></svg>
+    <span class="wordmark">STAND</span>
+  </a>
+  <nav class="crumbs" aria-label="Percorso">
+    <span class="crumb-muted">Progetti</span><span class="sep">/</span><span id="crumb-title">Nuovo</span>
+    <span id="crumb-key" class="tag mono" hidden></span>
+  </nav>
+  <div class="spacer"></div>
+  <span id="status-chip" class="chip" hidden></span>
+  <a id="top-guide" class="btn btn-quiet" href="#" hidden>Istruzioni</a>
+  <a id="top-zip" class="btn btn-primary" href="#" hidden>Scarica pacchetto <span class="mono small">.zip</span></a>
+  <button id="open-params" class="icon-btn only-mobile" type="button" aria-label="Parametri" aria-controls="params" aria-expanded="false">
+    <svg viewBox="0 0 22 22" aria-hidden="true"><path d="M2 6 H20 M2 16 H20"/><rect x="5" y="3" width="4" height="6"/><rect x="13" y="13" width="4" height="6"/></svg>
+  </button>
+</header>
+
+<div class="shell">
+
+  <!-- ========================================= parametri -->
+  <aside id="params" class="params" aria-label="Parametri">
+    <form id="form" novalidate>
+      <section class="p-sec">
+        <h2 class="eyebrow">01 · Strumento</h2>
+        <label class="field">Profilo
+          <select id="f-preset" name="preset"></select>
+        </label>
+        <label class="field" id="f-title-wrap">Nome dello strumento
+          <input id="f-title" name="title" type="text" autocomplete="off" placeholder="es. Korg Minilogue">
+        </label>
+      </section>
+
+      <section class="p-sec">
+        <div class="sec-head"><h2 class="eyebrow">02 · Ingombro</h2><span class="hint">dalle specifiche</span></div>
+        <div class="grid2">
+          <label class="field">Larghezza<span class="unit-input"><input id="f-w" name="w" inputmode="decimal" autocomplete="off"><span class="unit">mm</span></span></label>
+          <label class="field">Profondità<span class="unit-input"><input id="f-d" name="d" inputmode="decimal" autocomplete="off"><span class="unit">mm</span></span></label>
+          <label class="field">Altezza<span class="unit-input"><input id="f-h" name="h" inputmode="decimal" autocomplete="off"><span class="unit">mm</span></span></label>
+          <label class="field">Peso<span class="unit-input"><input id="f-kg" name="kg" inputmode="decimal" autocomplete="off"><span class="unit">kg</span></span></label>
+        </div>
+        <p class="hint" id="heavy-hint">Da 2 kg in su: pezzi robusti, traverse in due metà.</p>
+      </section>
+
+      <section class="p-sec">
+        <div class="sec-head"><h2 class="eyebrow">03 · Angoli</h2><span class="hint">1–6, tra 1° e 60°</span></div>
+        <div class="angle-chips" id="angle-chips"></div>
+        <div class="angle-add">
+          <span class="unit-input"><input id="f-angle-new" inputmode="decimal" autocomplete="off" aria-label="Nuovo angolo in gradi" placeholder="20"><span class="unit">°</span></span>
+          <button class="btn btn-dashed" id="angle-add" type="button">+ angolo</button>
+        </div>
+      </section>
+
+      <details class="p-sec adv" id="adv">
+        <summary class="eyebrow">04 · Opzioni avanzate</summary>
+        <div class="adv-body">
+          <label class="field">Profondità massima della base
+            <span class="unit-input"><input id="f-max" name="max_depth" inputmode="decimal" placeholder="nessun limite" autocomplete="off"><span class="unit">mm</span></span>
+          </label>
+          <label class="field">Bordino anteriore
+            <span class="unit-input"><input id="f-lip" name="lip" inputmode="decimal" autocomplete="off"><span class="unit">mm</span></span>
+          </label>
+          <div class="grid2">
+            <label class="field">Fianchi, min<span class="unit-input"><input id="f-spmin" name="sp_min" inputmode="decimal" placeholder="auto" autocomplete="off"><span class="unit">mm</span></span></label>
+            <label class="field">Fianchi, max<span class="unit-input"><input id="f-spmax" name="sp_max" inputmode="decimal" placeholder="auto" autocomplete="off"><span class="unit">mm</span></span></label>
+          </div>
+          <label class="check" id="f-keep-wrap"><input id="f-keep" type="checkbox" checked><span>Usa le tacche tarate a mano del profilo. Senza spunta le ricalcolo per la base più corta.</span></label>
+        </div>
+      </details>
+
+      <div class="p-foot">
+        <div class="gen-box" id="gen-box" hidden>
+          <div class="gen-row mono"><span id="gen-stage">In coda</span><span id="gen-pct">0 %</span></div>
+          <div class="bar"><div id="gen-bar"></div></div>
+          <span class="hint" id="gen-note"></span>
+        </div>
+        <p class="form-error" id="form-error" role="alert" hidden></p>
+        <button class="btn btn-primary btn-xl" id="generate" type="submit">Genera il supporto <span class="mono kbd">Ctrl ⏎</span></button>
+      </div>
+    </form>
+  </aside>
+  <div class="scrim only-mobile" id="scrim" hidden></div>
+
+  <!-- ========================================= lavoro -->
+  <main class="work">
+    <nav class="tabs" aria-label="Sezioni" id="tabs">
+      <a href="#" data-tab="modello" class="tab">Modello</a>
+      <a href="#" data-tab="pezzi" class="tab">Pezzi e ferramenta</a>
+      <a href="#" data-tab="montaggio" class="tab">Montaggio</a>
+      <a href="#" data-tab="verifica" class="tab">Verifica</a>
+      <div class="spacer"></div>
+      <div class="seg" role="group" aria-label="Vista" id="view-seg">
+        <button type="button" data-view="3d" aria-pressed="true">3D</button>
+        <button type="button" data-view="side" aria-pressed="false">Profilo</button>
+      </div>
+    </nav>
+
+    <!-- MODELLO -->
+    <section class="panel panel-model" data-panel="modello">
+      <div class="viewport bp-grid" id="viewport">
+        <svg class="crop tl" viewBox="0 0 24 24" aria-hidden="true"><path d="M1 23 V1 H23"/></svg>
+        <svg class="crop tr" viewBox="0 0 24 24" aria-hidden="true"><path d="M1 1 H23 V23"/></svg>
+        <svg class="crop bl" viewBox="0 0 24 24" aria-hidden="true"><path d="M1 1 V23 H23"/></svg>
+        <svg class="crop br" viewBox="0 0 24 24" aria-hidden="true"><path d="M23 1 V23 H1"/></svg>
+
+        <canvas id="gl" aria-label="Modello 3D del supporto: trascina per ruotare, rotella per lo zoom" role="img"></canvas>
+        <img id="side-img" alt="" hidden>
+
+        <div class="vp-label" id="vp-label" hidden>
+          <span class="eyebrow" id="vp-view">3D · TRASCINA PER RUOTARE</span>
+          <span class="vp-angle" id="vp-angle"></span>
+        </div>
+        <div class="vp-dims mono" id="vp-dims" hidden></div>
+
+        <div class="vp-angles" id="vp-angles" hidden>
+          <span class="eyebrow">Angolo</span>
+          <div class="seg seg-angles" role="group" aria-label="Angolo" id="angle-seg"></div>
+        </div>
+        <button class="vp-reset icon-btn" id="vp-reset" type="button" aria-label="Ripristina la vista" hidden>
+          <svg viewBox="0 0 22 22" aria-hidden="true"><path d="M4 11 A7 7 0 1 0 6 6"/><path d="M3 3 V7 H7"/></svg>
+        </button>
+
+        <div class="vp-empty" id="vp-empty">
+          <svg viewBox="0 0 48 48" aria-hidden="true" class="empty-mark"><path d="M3 40 H45" class="m-ink"/><path d="M8 38 L41 13.25" class="m-acc"/><path d="M36 40 L33 19.5" class="m-ink"/></svg>
+          <h1>Un supporto su misura, a pochi millimetri dal tavolo.</h1>
+          <p>Scegli uno strumento o inserisci le misure, poi premi <strong>Genera</strong>: calcolo tacche, asta e viti, controllo collisioni e stabilità, e preparo STL e istruzioni.</p>
+        </div>
+        <div class="vp-busy" id="vp-busy" hidden>
+          <div class="scan"></div>
+          <span class="mono" id="vp-busy-text">Calcolo</span>
+        </div>
+        <div class="vp-fail" id="vp-fail" hidden></div>
+      </div>
+
+      <aside class="summary" id="summary" aria-label="Riepilogo" hidden></aside>
+    </section>
+
+    <!-- PEZZI -->
+    <section class="panel panel-page" data-panel="pezzi" hidden>
+      <div class="page" id="page-pezzi"></div>
+    </section>
+
+    <!-- MONTAGGIO -->
+    <section class="panel panel-guide" data-panel="montaggio" hidden>
+      <nav class="g-index" aria-label="Pagine"><ol id="g-index"></ol></nav>
+      <div class="g-desk bp-grid-fine" id="g-desk"></div>
+      <aside class="g-detail" id="g-detail" aria-label="Dettaglio del passo"></aside>
+    </section>
+
+    <!-- VERIFICA -->
+    <section class="panel panel-page" data-panel="verifica" hidden>
+      <div class="page" id="page-verifica"></div>
+    </section>
+  </main>
+</div>
+
+<nav class="bottom-nav only-mobile" aria-label="Sezioni" id="bottom-nav">
+  <a href="#" data-tab="modello"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M2 17 H18 M3 16 L16 5"/></svg>Modello</a>
+  <a href="#" data-tab="pezzi"><svg viewBox="0 0 20 20" aria-hidden="true"><rect x="2.5" y="2.5" width="6" height="6"/><rect x="11.5" y="2.5" width="6" height="6"/><rect x="2.5" y="11.5" width="6" height="6"/><rect x="11.5" y="11.5" width="6" height="6"/></svg>Pezzi</a>
+  <a href="#" data-tab="montaggio"><svg viewBox="0 0 20 20" aria-hidden="true"><rect x="4.5" y="2.5" width="11" height="15"/><path d="M7 7 H13 M7 10 H13 M7 13 H11"/></svg>Montaggio</a>
+  <a href="#" data-tab="verifica"><svg viewBox="0 0 20 20" aria-hidden="true"><rect x="2.5" y="2.5" width="15" height="15"/><path d="M6 10.5 L9 13 L14 7"/></svg>Verifica</a>
+</nav>
+
+<script src="viewer.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
