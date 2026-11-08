@@ -96,6 +96,12 @@ Un file di parametri minimo per uno strumento nuovo:
 
 Da 2 kg in su si usano automaticamente i pezzi robusti (come il Virus).
 
+Oltre ai tre strumenti, `PRESETS` contiene i computer Commodore con tastiera integrata: VIC-20, C64 (breadbin),
+C64C, C16, Plus/4, C128, Amiga 500 / 500 Plus, Amiga 600, Amiga 1200, tutti a 5°, 10° e 15°. Le misure vengono da
+c64-wiki.de, Wikipedia e dalle brochure Commodore e differiscono di qualche millimetro tra le fonti: prima di
+stampare misura il tuo. Il peso di C16 e Plus/4 non si trova ed è stimato per eccesso. Gli Amiga con tastiera
+separata (1000, 2000, 3000, 4000) non ci sono: non hanno una tastiera da inclinare.
+
 ## Sito web: STAND
 
 Interfaccia in HTML, CSS e JavaScript semplici (`static/`, nessun framework né build) sopra un'API FastAPI (`app.py`).

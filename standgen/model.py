@@ -51,6 +51,53 @@ PRESETS = {
         LABEL="Novation Launchpad Pro MK3",
         DEV_W=268.0, DEV_D=268.0, DEV_H=18.0, DEV_KG=1.0, SPACING_RANGE=(160.0, 200.0),
         ANGLES=[5, 10, 15], NOTCH_Z={5: 11.0, 10: 8.0, 15: 17.5}, LIP_H=8.0),
+
+    # Computer Commodore. Misure da c64-wiki.de (VIC-20, C64, C16, Plus/4), Wikipedia (Amiga 500, 600, 1200),
+    # retrotechcollection (C64C) e brochure Commodore (C128). Le fonti differiscono di qualche mm: misura il tuo.
+    # Peso stimato per eccesso dove non si trova: C16 (scocca del VIC-20), Plus/4.
+    # Tacche, perno e asta calcolati con tune() e verificati.
+    "vic20": dict(
+        LABEL="Commodore VIC-20",
+        DEV_W=403.0, DEV_D=204.0, DEV_H=72.0, DEV_KG=1.8,
+        ANGLES=[5, 10, 15], NOTCH_Z={5: 10.3, 10: 10.3, 15: 19.8}, LIP_H=10.0, PIVOT_D=150.0, PROP_L=30.0),
+    "c64": dict(
+        LABEL="Commodore 64 (breadbin)",
+        DEV_W=404.0, DEV_D=216.0, DEV_H=75.0, DEV_KG=1.8,
+        ANGLES=[5, 10, 15], NOTCH_Z={5: 10.3, 10: 10.3, 15: 19.8}, LIP_H=10.0, PIVOT_D=150.0, PROP_L=30.0),
+    "c64c": dict(
+        LABEL="Commodore 64C",
+        DEV_W=406.0, DEV_D=216.0, DEV_H=57.0, DEV_KG=1.7,
+        ANGLES=[5, 10, 15], NOTCH_Z={5: 10.3, 10: 10.3, 15: 19.8}, LIP_H=10.0, PIVOT_D=150.0, PROP_L=30.0),
+    "c16": dict(
+        LABEL="Commodore 16",
+        DEV_W=407.0, DEV_D=204.0, DEV_H=77.0, DEV_KG=1.8,
+        ANGLES=[5, 10, 15], NOTCH_Z={5: 10.3, 10: 10.3, 15: 19.8}, LIP_H=10.0, PIVOT_D=150.0, PROP_L=30.0),
+    "plus4": dict(
+        LABEL="Commodore Plus/4",
+        DEV_W=335.0, DEV_D=202.0, DEV_H=65.0, DEV_KG=1.5,
+        ANGLES=[5, 10, 15], NOTCH_Z={5: 10.3, 10: 10.3, 15: 19.8}, LIP_H=10.0, PIVOT_D=150.0, PROP_L=30.0),
+    "c128": dict(
+        LABEL="Commodore 128",
+        DEV_W=432.0, DEV_D=324.0, DEV_H=56.0, DEV_KG=2.5,
+        ANGLES=[5, 10, 15], NOTCH_Z={5: 9.3, 10: 8.3, 15: 17.3}, LIP_H=10.0, PIVOT_D=170.0, PROP_L=40.0),
+    "a500": dict(
+        LABEL="Amiga 500 / 500 Plus",
+        DEV_W=474.0, DEV_D=330.0, DEV_H=62.0, DEV_KG=3.4,
+        ANGLES=[5, 10, 15], NOTCH_Z={5: 9.3, 10: 8.3, 15: 17.3}, LIP_H=10.0, PIVOT_D=170.0, PROP_L=40.0),
+    "a600": dict(
+        LABEL="Amiga 600",
+        DEV_W=350.0, DEV_D=240.0, DEV_H=75.0, DEV_KG=2.72,
+        ANGLES=[5, 10, 15], NOTCH_Z={5: 9.3, 10: 8.3, 15: 17.3}, LIP_H=10.0, PIVOT_D=170.0, PROP_L=40.0),
+    "a1200": dict(
+        LABEL="Amiga 1200",
+        DEV_W=470.0, DEV_D=241.0, DEV_H=76.0, DEV_KG=3.6,
+        ANGLES=[5, 10, 15], NOTCH_Z={5: 9.3, 10: 8.3, 15: 17.3}, LIP_H=10.0, PIVOT_D=170.0, PROP_L=40.0),
+}
+
+PRESET_GROUPS = {
+    "Strumenti musicali": ["virus_ti", "tracker_plus", "launchpad_pro"],
+    "Computer Commodore": ["vic20", "c64", "c64c", "c16", "plus4", "c128"],
+    "Amiga": ["a500", "a600", "a1200"],
 }
 
 KNOWN = set(LIGHT) | set(DEVICE) | {"LABEL"}

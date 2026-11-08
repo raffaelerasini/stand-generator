@@ -26,6 +26,7 @@ from fastapi.responses import FileResponse, JSONResponse, Response
 from fastapi.staticfiles import StaticFiles
 
 from standgen import PRESETS, Stand, generate, load_params
+from standgen.model import PRESET_GROUPS
 from standgen import blueprint
 from standgen.checks import summary
 from standgen.pipeline import _jsonable, add_instructions
@@ -38,6 +39,7 @@ CACHE_MAX = int(os.environ.get("CACHE_MAX", 40))
 CONCURRENCY = int(os.environ.get("CONCURRENCY", 2))
 RESULT_VERSION = 3                      # cambia la chiave della cache quando cambia il formato del risultato
 AUTO_KEYS = ("NOTCH_Z", "PIVOT_D", "PROP_L")
+PRESET_GROUP = {k: g for g, ks in PRESET_GROUPS.items() for k in ks}
 PART_NAMES = {"base": "Base", "deck": "Ripiano", "prop": "Asta",
               "crossbar": "Traversa", "crossbar_A": "Traversa A", "crossbar_B": "Traversa B"}
 
@@ -358,7 +360,7 @@ def presets():
     out = []
     for k, p in PRESETS.items():
         sp = p.get("SPACING_RANGE") or (None, None)
-        out.append({"id": k, "label": p["LABEL"], "w": p["DEV_W"], "d": p["DEV_D"], "h": p["DEV_H"],
+        out.append({"id": k, "label": p["LABEL"], "group": PRESET_GROUP.get(k, "Altro"), "w": p["DEV_W"], "d": p["DEV_D"], "h": p["DEV_H"],
                     "kg": p["DEV_KG"], "angles": [fmt_angle(a) for a in p["ANGLES"]], "lip": p.get("LIP_H", 10),
                     "sp_min": sp[0], "sp_max": sp[1], "max_depth": p.get("MAX_DEPTH")})
     return out

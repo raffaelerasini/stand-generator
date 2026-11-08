@@ -576,7 +576,14 @@
       showError(`Non riesco a parlare col server: ${e.message}`);
       return;
     }
-    F.preset.innerHTML = S.presets.map((p) => `<option value="${esc(p.id)}">${esc(p.label)}</option>`).join("")
+    const groups = [];
+    for (const p of S.presets) {
+      let g = groups.find((x) => x.name === p.group);
+      if (!g) groups.push((g = { name: p.group, items: [] }));
+      g.items.push(p);
+    }
+    F.preset.innerHTML = groups.map((g) => `<optgroup label="${esc(g.name)}">${g.items.map((p) =>
+      `<option value="${esc(p.id)}">${esc(p.label)}</option>`).join("")}</optgroup>`).join("")
       + `<option value="">Strumento personalizzato</option>`;
     presetChanged();
     renderHeader();
