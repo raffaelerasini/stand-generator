@@ -9,7 +9,7 @@ Davanti non c'è nessun blocco: la cerniera ha tutto lo spazio per ruotare.
 
 | Cartella | Strumento | Angoli | Piano d'appoggio davanti | Profondità base | Filamento |
 |---|---|---|---|---|---|
-| `virus_ti/` | Access Virus TI/TI2 Desktop, 470 × 188 × 81 mm, 3,5 kg | 15° 25° 35° 45° | **22 mm** (bordino +16) | **190 mm** | ~460 g |
+| `virus_ti/` | Access Virus TI/TI2 Desktop, 470 × 188 × 81 mm, 3,5 kg | 15° 25° 35° 45° | **22 mm** (bordino +30) | **190 mm** | ~460 g |
 | `tracker_plus/` | Polyend Tracker+, 282 × 207 × 33 mm, 1,2 kg | 5° 10° 15° | **18 mm** (bordino +10) | 228 mm | ~255 g |
 | `launchpad_pro/` | Novation Launchpad Pro MK3, 268 × 268 × 18 mm, ~1 kg | 5° 10° 15° | **18 mm** (bordino +8) | 228 mm | ~255 g |
 
